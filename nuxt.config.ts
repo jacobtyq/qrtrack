@@ -7,4 +7,13 @@ export default defineNuxtConfig({
   // NOTE: SSR set to false due to this issue authenticating
   // https://github.com/orgs/supabase/discussions/20443
   ssr: false,
+  supabase: {
+    redirectOptions: {
+      login: '/login',
+      callback: '/confirm',
+      include: ['/auth'],
+      exclude: [],
+      saveRedirectToCookie: false,
+    },
+  },
 })

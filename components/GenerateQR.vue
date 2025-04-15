@@ -25,11 +25,22 @@ const saveQRCode = async () => {
 }
 </script>
 
+<style scoped>
+.btn-container {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 1rem;
+}
+</style>
+
 <template>
   <h2>QR Code</h2>
   <qrcode-vue :value="text" :size="200" level="H" />
   <input v-model="text" placeholder="Enter text or URL" />
-  <button @click="saveQRCode">
-    {{ loading ? 'Saving...' : 'Generate & Save QR' }}
-  </button>
+  <div class="btn-container">
+    <NuxtLink to="/dashboard">Back</NuxtLink>
+    <button @click="saveQRCode">
+      {{ loading ? 'Saving...' : 'Generate & Save QR' }}
+    </button>
+  </div>
 </template>

@@ -4,13 +4,7 @@ const user = useSupabaseUser()
 
 <template>
   <div class="container" style="padding: 50px 0 100px 0">
-    <h1 v-if="user">Dashboard</h1>
+    <Account v-if="user" />
     <Auth v-else />
   </div>
 </template>
-
-<style scoped>
-h1 {
-  color: white;
-}
-</style>

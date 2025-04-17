@@ -90,3 +90,21 @@ watch(path, () => {
     </div>
   </div>
 </template>
+
+<style scoped>
+.avatar {
+  border-radius: var(--custom-border-radius);
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.avatar.image {
+  object-fit: cover;
+}
+
+.avatar.no-image {
+  background-color: #333;
+  border: 1px solid rgb(200, 200, 200);
+  border-radius: 5px;
+}
+</style>

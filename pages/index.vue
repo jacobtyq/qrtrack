@@ -4,4 +4,8 @@ definePageMeta({
 })
 </script>
 
-<template>Hello</template>
+<template>
+  <div>
+    <p class="text-white">Hello</p>
+  </div>
+</template>

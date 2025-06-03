@@ -8,15 +8,17 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
+const loading = ref(false)
+const isAuthenticated = ref(false)
 
 const supabase = useSupabaseClient()
-
-const loading = ref(true)
+const user = useSupabaseUser()
 
 async function signOut() {
   try {
     loading.value = true
     const { error } = await supabase.auth.signOut()
+    navigateTo('/auth/login')
     if (error) throw error
   } catch (error) {
     alert(error.message)
@@ -24,10 +26,18 @@ async function signOut() {
     loading.value = false
   }
 }
+
+watchEffect(() => {
+  if (user.value) {
+    isAuthenticated.value = true
+  } else {
+    isAuthenticated.value = false
+  }
+})
 </script>
 
 <template>
-  <div class="p-2 w-full flex justify-between">
+  <div v-if="isAuthenticated" class="p-2 w-full flex justify-between">
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
@@ -59,5 +69,23 @@ async function signOut() {
     <button class="button block" @click="signOut" :disabled="loading">
       Sign Out
     </button>
+  </div>
+  <div v-if="!isAuthenticated" class="p-2 w-full flex justify-between">
+    <NavigationMenu>
+      <NavigationMenuList>
+        <NavigationMenuItem>
+          <NuxtLink to="/auth/login">
+            <NavigationMenuLink
+              :active="isActive"
+              :href
+              :class="navigationMenuTriggerStyle()"
+              @click="navigate"
+            >
+              Login
+            </NavigationMenuLink>
+          </NuxtLink>
+        </NavigationMenuItem>
+      </NavigationMenuList>
+    </NavigationMenu>
   </div>
 </template>
